@@ -1,0 +1,54 @@
+
+local points = {}
+local function createInteractivePed(ped, options)
+    if not ped or not options then return end
+    local resource = GetInvokingResource()
+    if not points[resource] then
+        points[resource] = {}
+    end
+    points[resource][#points[resource]+1] = lib.points.new({
+        coords = ped.coords,
+        distance = 40.0,
+        onEnter = function(self)
+            if self.entity and DoesEntityExist(self.entity) then
+                DeleteEntity(self.entity)
+            end
+            ped.hash =  lib.requestModel(ped.hash, 5000)
+            self.entity = CreatePed(2, ped.hash, ped.coords.xyz, false, false)
+        
+            while not DoesEntityExist(self.entity) do
+                Wait(50)
+            end
+    
+            SetEntityHeading(self.entity, ped.coords.w)
+            TaskStartScenarioInPlace(self.entity, "WORLD_HUMAN_CLIPBOARD", 0, true)
+            FreezeEntityPosition(self.entity, true)
+            SetBlockingOfNonTemporaryEvents(self.entity, true)
+            SetEntityInvincible(self.entity, true)
+            SetModelAsNoLongerNeeded(ped.hash)
+
+            Entity(self.entity).state:set('missionPed', true)
+        
+            exports.ox_target:addLocalEntity(self.entity, options)
+        end,
+
+        onExit = function(self)
+            if self.entity and DoesEntityExist(self.entity) then
+                DeleteEntity(self.entity)
+            end
+            self.entity = nil
+        end,
+    })
+end
+    
+exports('createInteractivePed', createInteractivePed)
+
+AddEventHandler('onResourceStop', function(resourceName)
+    if points[resourceName] then
+        for _, point in pairs(points[resourceName]) do
+            point:onExit()
+            point:remove()
+        end
+        points[resourceName] = nil
+    end
+end)
