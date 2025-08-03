@@ -2,7 +2,7 @@ math.randomseed(os.time())
 
 ---@param loot { [1]: string, [2]: { [1]: number, [2]: number }, [3]?: number }[]
 ---@param itemCount number
----@return { [1]: string, [2]: { [1]: number, [2]: number }, [3]?: number }[]
+---@return { [1]: string, [2]: number }[]
 local function randomLoot(loot, itemCount)
     local items = {}
     local usedNames = {}

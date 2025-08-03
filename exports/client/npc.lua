@@ -21,7 +21,9 @@ local function createInteractivePed(ped, options)
             end
     
             SetEntityHeading(self.entity, ped.coords.w)
-            TaskStartScenarioInPlace(self.entity, "WORLD_HUMAN_CLIPBOARD", 0, true)
+            if ped.scenario ~= false then
+                TaskStartScenarioInPlace(self.entity, "WORLD_HUMAN_CLIPBOARD", 0, true)
+            end
             FreezeEntityPosition(self.entity, true)
             SetBlockingOfNonTemporaryEvents(self.entity, true)
             SetEntityInvincible(self.entity, true)
