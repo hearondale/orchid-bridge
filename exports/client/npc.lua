@@ -6,7 +6,8 @@ local function createInteractivePed(ped, options)
     if not points[resource] then
         points[resource] = {}
     end
-    points[resource][#points[resource]+1] = lib.points.new({
+
+    local point = lib.points.new({
         coords = ped.coords,
         distance = 40.0,
         onEnter = function(self)
@@ -41,6 +42,10 @@ local function createInteractivePed(ped, options)
             self.entity = nil
         end,
     })
+
+    points[resource][#points[resource]+1] = point
+
+    return point
 end
     
 exports('createInteractivePed', createInteractivePed)

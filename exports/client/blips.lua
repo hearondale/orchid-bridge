@@ -5,16 +5,24 @@ local function createBlip(settings, coords)
         blips[resource] = {}
     end
 
-	local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
-	SetBlipSprite(blip, settings.sprite)
-	SetBlipDisplay(blip, 4)
-	SetBlipScale(blip, settings.scale or 0.8)
-	SetBlipColour(blip, settings.colour)
-	SetBlipAsShortRange(blip, true)
-    if settings.name then
-        BeginTextCommandSetBlipName("STRING")
-        AddTextComponentString(settings.name)
-        EndTextCommandSetBlipName(blip)
+	local blip
+    if settings.sprite then
+        blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+        SetBlipSprite(blip, settings.sprite)
+        SetBlipDisplay(blip, 4)
+        SetBlipScale(blip, settings.scale or 0.8)
+        SetBlipColour(blip, settings.colour)
+        SetBlipAsShortRange(blip, true)
+        if settings.name then
+            BeginTextCommandSetBlipName("STRING")
+            AddTextComponentString(settings.name)
+            EndTextCommandSetBlipName(blip)
+        end
+    elseif settings.radius then
+        blip = AddBlipForRadius(coords.x, coords.y, coords.z, settings.radius + 0.0)
+        SetBlipColour(blip, settings.colour)
+        SetBlipAlpha(blip, 130) -- Semi-transparent
+        SetBlipAsShortRange(blip, true)
     end
 
     blips[resource][#blips[resource]+1] = blip
