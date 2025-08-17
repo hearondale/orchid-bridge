@@ -1,5 +1,4 @@
-function Target()
-    return {
+return {
         addEntity = function (self, entity, options)
             exports['qb-target']:addEntity(entity, options)
         end,
@@ -19,4 +18,3 @@ function Target()
             exports['qb-target']:removeZone(id)
         end
     }
-end

@@ -18,7 +18,28 @@ return {
         ox : ox_lib
         custom : your own
 
-        Refer to the folder textui if you want to edit/add more
+        Refer to the folder modules/textui if you want to edit/add more
     **/
-    TextUI = 'custom'
+    TextUI = 'custom',
+
+
+    /** 
+        Context menu options
+        2 Option available
+        ox : ox_lib
+        custom : your own
+
+        Refer to the folder modules/context if you want to edit/add more
+    **/
+    Context = 'ox',
+
+    /** 
+        Notification options
+        2 Option available
+        ox : ox_lib
+        custom : your own
+
+        Refer to the folder modules/notify if you want to edit/add more
+    **/
+    Notify = 'ox'
 }
