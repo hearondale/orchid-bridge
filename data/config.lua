@@ -1,10 +1,6 @@
 return {
     -- supported frameworks (will be detected automatically):
-    -- ox | esx | qbx| qb | custom (check bridge/custom)
-
-    -- Supported inventories:
-    -- ox | qb
-    Inventory = 'ox',
+    -- ox | esx | qbx| qb | custom (check framework/custom)
 
 
     /** 

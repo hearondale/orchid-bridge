@@ -23,4 +23,6 @@ client_scripts {
 
 server_scripts {
 	'exports/server/*.lua',
+	'version.lua'
 }
+

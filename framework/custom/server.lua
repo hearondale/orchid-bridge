@@ -20,9 +20,11 @@ Framework = {
         if not player then return nil end
     
         local self = {}
-    
+
+        self.job = player.getJob()
+
         self.hasJob = function(jobName, grade)
-            return player.getJob().name == jobName and player.getJob().grade >= (grade or 0)
+            return self.job.name == jobName and self.job.grade >= (grade or 0)
         end
     
         self.addItem = function (item, cnt)

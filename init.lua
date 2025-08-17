@@ -55,5 +55,11 @@ else
     end
 end
 
-inventory = require ("inventory." .. Config.Inventory)
-lib.print.info("Orchid bridge loaded with " .. core .. " framework and " .. Config.Inventory .. " inventory")
+inventory = exports.ox_inventory
+
+print("^3======= Orchid Bridge Loaded =======")
+print("^7Framework: ^2" .. core)
+print("^7Target: ^5" .. Config.Target)
+print("^7Text UI: ^5" .. Config.TextUI)
+
+print("^3====================================")

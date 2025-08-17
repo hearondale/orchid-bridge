@@ -23,6 +23,8 @@ Framework = {
     
         local self = {}
     
+        self.job = player.getJob()
+
         self.hasJob = function(jobName, grade)
             return player.getJob().name == jobName and player.getJob().grade >= (grade or 0)
         end
