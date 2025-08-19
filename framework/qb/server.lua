@@ -1,7 +1,8 @@
+local Core, Type
 if GetResourceState('qb-core') == 'started' then
-    Core = exports['qb-core']:GetCoreObject()
+    Core, Type = exports['qb-core']:GetCoreObject(), 'qb'
 elseif GetResourceState('qbx_core') == 'started' then
-    Core = exports['qbx_core']:GetCoreObject()
+    Core, Type = exports['qbx_core']:GetCoreObject(), 'qbox'
 else
     return lib.print.error('Incorrect configuration of framework (must be qb or qbox)')
 end
@@ -14,8 +15,7 @@ Events = {
 
 Framework = {
     RegisterUsableItem = function (item, data)
-        if GetResourceState('qbx_core') == 'started' then
-            lib.print.info('register qbox', item)
+        if Type == 'qbox' then
             return exports.qbx_core:CreateUseableItem(item, data)
         else
             return Core.Functions.CreateUseableItem(item, data)
@@ -23,12 +23,10 @@ Framework = {
     end,
 
     ---@param job string
-    ---@return table
+    ---@return table, number
     GetActivePlayers = function (job)
-        local players = {}
-
-
-        return players
+        local players, amount = Core.Functions.GetPlayersOnDuty(job)
+        return players, amount
     end,
 
     GetPlayerFromId = function (src)

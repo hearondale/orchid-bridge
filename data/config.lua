@@ -1,45 +1,35 @@
+-- Refer to the folder module
+
 return {
     -- supported frameworks (will be detected automatically):
     -- ox | esx | qbx| qb | custom (check framework/custom)
 
 
-    /** 
-        3 Options available
-        ox : ox_target
-        qb : qb-target
-        sleepless : sleepless_interact
-    **/
+    -- ox  : ox_target
+    -- qb  : qb-target
+    -- sleepless : sleepless_interact
     Target = 'ox',
 
+    -- In most our resource used for displaying keybinds
+    -- ox       :  ox_lib
+    -- default  :  GTA Help Text
+    -- custom   :  your own
+    TextUI = 'default',
 
-    /** 
-        Used for displaying keybinds
-        2 Options available
-        ox : ox_lib
-        custom : your own
-
-        Refer to the folder modules/textui if you want to edit/add more
-    **/
-    TextUI = 'custom',
-
-
-    /** 
-        Context menu options
-        2 Option available
-        ox : ox_lib
-        custom : your own
-
-        Refer to the folder modules/context if you want to edit/add more
-    **/
+    -- Context menu
+    -- ox       : ox_lib
+    -- custom   : your own
     Context = 'ox',
 
-    /** 
-        Notification options
-        2 Option available
-        ox : ox_lib
-        custom : your own
+    -- ox       : ox_lib
+    -- custom   : your own
+    Notify = 'ox',
 
-        Refer to the folder modules/notify if you want to edit/add more
-    **/
-    Notify = 'ox'
+    -- ox       : ox_lib
+    -- custom   : your own
+    Progress = 'ox',
+
+    -- ox       : ox_lib
+    -- custom   : your own
+    SkillCheck = 'ox'
 }

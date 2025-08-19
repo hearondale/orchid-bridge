@@ -9,12 +9,10 @@ Framework = {
     RegisterUsableItem = Core.RegisterUsableItem,
 
     ---@param job string
-    ---@return table
+    ---@return table, number
     GetActivePlayers = function (job)
-        local players = {}
-
-
-        return players
+        local players = Core.GetExtendedPlayers('job', job)
+        return players, #players
     end,
     GetPlayerFromId = function (src)
         local player = Core.GetPlayerFromId(src)
@@ -37,9 +35,7 @@ Framework = {
             return player.removeInventoryItem(item, cnt)
         end
 
-        self.canCarryItem = function (item, cnt)
-            return player.canCarryItem(item, cnt)
-        end
+        self.canCarryItem = player.canCarryItem
 
         self.hasItem = function (item, cnt, metadata)
             return inventory:GetItemCount(self.source, item, cnt, metadata) > 0

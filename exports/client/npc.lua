@@ -1,3 +1,5 @@
+local Config = lib.load('data.config')
+local target = require("modules.target." .. Config.Target)
 
 local points = {}
 local function createInteractivePed(ped, options)
@@ -32,7 +34,7 @@ local function createInteractivePed(ped, options)
 
             Entity(self.entity).state:set('missionPed', true)
         
-            exports.ox_target:addLocalEntity(self.entity, options)
+            target:addLocalEntity(self.entity, options)
         end,
 
         onExit = function(self)

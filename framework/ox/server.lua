@@ -6,15 +6,16 @@ Events = {
 }
 
 Framework = {
-    RegisterUsableItem = Core.CreateUseableItem,
+    RegisterUsableItem = function ()
+        -- Refer to ox_inventory documentation
+        -- ox_core does not provide such export
+    end,
 
     ---@param job string
-    ---@return table
+    ---@return table, number
     GetActivePlayers = function (job)
-        local players = {}
-
-
-        return players
+        local players = Core.GetPlayers({ job = job })
+        return players, #players
     end,
 
     GetPlayerFromId = function(src)
@@ -38,7 +39,7 @@ Framework = {
         end
     
         self.canCarryItem = function(item, cnt)
-            return inventory:canCarryItem(self.source, item, cnt)
+            return inventory:CanCarryItem(self.source, item, cnt)
         end
 
         self.hasItem = function (item, cnt, metadata)
