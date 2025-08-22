@@ -17,10 +17,16 @@ files {
 	'modules/**/client/*.lua',
 	'modules/**/*.lua',
 	'init.lua',
+
+	'web/build/index.html',
+	'web/build/assets/*.js',
+	'web/build/assets/*.css'
 }
 
 client_scripts {
 	'exports/client/*.lua',
+
+	-- 'tests/*.lua',
 }
 
 server_scripts {
@@ -28,3 +34,4 @@ server_scripts {
 	'exports/server/*.lua',
 }
 
+ui_page 'web/build/index.html'

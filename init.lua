@@ -37,8 +37,20 @@ if IsDuplicityVersion() then
 
     Orchid.notify = notifyModule
 
--- Client initialization
-else
+    local function printStartup()
+        print("^3======= Orchid Bridge Loaded =======^7")
+        print(("Framework: \t ^5%s^7"):format(Orchid.framework))
+        print(("Target: \t ^5%s^7"):format(Config.Target))
+        print(("Text UI: \t ^5%s^7"):format(Config.TextUI))
+        print(("Context: \t ^5%s^7"):format(Config.Context))
+        print(("Notify: \t ^5%s^7"):format(Config.Notify))
+        print(("SkillCheck: \t ^5%s^7"):format(Config.SkillCheck))
+        print(("Progress: \t ^5%s^7"):format(Config.Progress))
+        print("^3====================================^7")
+    end
+
+    printStartup()
+else -- Client initialization
     require(("framework.%s.client"):format(framework))
 
     Orchid.target = require(("modules.target.%s"):format(Config.Target))
@@ -49,17 +61,5 @@ else
     Orchid.notify = require(("modules.notify.client.%s"):format(Config.Notify))
 end
 
-
-local function printStartup()
-    print("^3======= Orchid Bridge Loaded =======^7")
-    print(("Framework: \t ^5%s^7"):format(Orchid.framework))
-    print(("Target: \t ^5%s^7"):format(Config.Target))
-    print(("Text UI: \t ^5%s^7"):format(Config.TextUI))
-    print(("Context: \t ^5%s^7"):format(Config.Context))
-    print(("Notify: \t ^5%s^7"):format(Config.Notify))
-    print(("SkillCheck: \t ^5%s^7"):format(Config.SkillCheck))
-    print(("Progress: \t ^5%s^7"):format(Config.Progress))
-    print("^3====================================^7")
-end
     
-printStartup()
+
