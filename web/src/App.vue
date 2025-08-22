@@ -8,7 +8,7 @@ debugData([
     data: {
       label: 'List of placed Pots',
       items: [
-        [61191, 'Description 1', '#47a326', 'Description 1', '#d68bc0'],
+        [39, '1384.40, 1815.37, 98.38', 'large_pot', 'SID 2', 'weed_seed_purplehaze, weed_seed_purplehaze, weed_seed_purplehaze'],
         [60436, 'Description 1', '#19ad97', 'Description 1', '#e41bcb'],
         [64994, 'Description 1', '#ef201d', 'Description 1', '#875d74'],
         [62769, 'Description 1', '#ae5191', 'Description 1', '#b996b6'],
@@ -50,7 +50,13 @@ debugData([
         [63393, 'Description 1', '#e09c09', 'Description 1', '#292344'],
 
       ],
-      categories: ['Net ID', 'Coordinates', 'Plants in pot', 'Owner', 'Owner2', 'Placement Time'],
+      categories: [
+        { label: 'Net ID', options: { noWrap: false, size: 'big' }},
+        { label: 'Coordinates', options: { noWrap: true }},
+        { label: 'Plants in pot', options: { noWrap: false }},
+        { label: 'Owner', options: { noWrap: false }},
+        { label: 'Owner2', options: { noWrap: false }},
+      ],
       buttons: [
         { icon: 'fas fa-edit', label: 'Edit' },
         { icon: 'fas fa-trash', label: 'Delete' },

@@ -1,28 +1,32 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import useNuiEvent from '@/hooks/useNuiEvent'
 import { fetchNui } from '@/utils/fetchNui'
 import { useVirtualList } from '@vueuse/core'
 import 'floating-vue/dist/style.css'
 import Divider from './Divider.vue'
+import type { Category } from '@/typings/Category'
+
+
 
 const showList = ref(false)
 const searchQuery = ref('')
 const currentlyOpened = ref<number | null>(null)
+const gridRef = ref<HTMLDivElement>()
 const listData = ref<{
   label: string
   items: Array<{ text: Array<string>; index: number }>
   buttons: Array<{ icon: string; label: string }>
-  categories: Array<string>
+  categories: Array<Category>
 } | null>(null)
 const categoriesSize = computed(() => {
-  return listData.value?.categories.length || 1
+  return (listData.value?.categories.length || 1)
 })
 
 useNuiEvent<{
   label: string
   items: Array<Array<string>>
-  categories: Array<string>
+  categories: Array<Category>
   buttons: Array<{ icon: string; label: string }>
 }>('openUltimateList', (data) => {
   showList.value = true
@@ -70,6 +74,34 @@ const close = (dontFetch?: boolean) => {
     fetchNui('closeList')
   }
 }
+
+const escListener = (event: KeyboardEvent) => {
+  if (event.key === 'Escape') {
+    close()
+  }
+}
+
+function sizeToFr(size: string | boolean | undefined) {
+  switch (size) {
+    case 'small': return '0.4fr';
+    case 'mid': return '0.7fr';
+    case 'big': return '1.2fr';
+    default: return '1fr';
+  }
+}
+
+const templateColumns = computed(() => {
+  return (listData.value?.categories.map(category => sizeToFr(category.options?.size)).join(' ') || '')
+})
+
+onMounted(() => {
+  addEventListener('keydown', escListener)
+})
+
+onUnmounted(() => {
+  removeEventListener('keydown', escListener)
+})
+
 </script>
 
 <template>
@@ -84,8 +116,8 @@ const close = (dontFetch?: boolean) => {
     <div class="list-container">
       <li>
         <div>
-          <div class="info">
-            <p v-for="(column, colIndex) in listData?.categories" :key="colIndex">{{ column }}</p>
+          <div class="info" ref="gridRef">
+            <p v-for="(column, colIndex) in listData?.categories" :key="colIndex">{{ column.label }}</p>
           </div>
           <div class="buttons">
             <div v-for="(b, bi) in listData?.buttons" :key="bi" style="width: 16px;">
@@ -99,8 +131,10 @@ const close = (dontFetch?: boolean) => {
           <template v-for="(item, index) in list" :key="index" v-if="list.length > 0">
             <li>
               <div>
-                <div class="info">
-                  <p v-for="(text, i) in item.data.text" :key="i">{{ text }}</p>
+                <div class="info" ref="gridRef">
+                  <p v-for="(text, i) in item.data.text" :key="i" :style="{
+                    textWrap: listData?.categories[i]?.options?.noWrap ? 'nowrap' : 'wrap',
+                  }">{{ text }}</p>
                 </div>
                 <div class="buttons">
                   <button v-for="(button, btnIndex) in listData?.buttons" :key="btnIndex"
@@ -138,7 +172,7 @@ $sidePadding: 1.9rem;
   border-radius: 14px;
   padding: 25px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 50vw;
+  width: 60vw;
   position: absolute;
   right: 2vh;
   top: 2vh;
@@ -206,6 +240,7 @@ $sidePadding: 1.9rem;
 
   .scroll-container {
     padding: $gap 0;
+
     ul {
       align-self: stretch;
       display: flex;
@@ -223,47 +258,49 @@ $sidePadding: 1.9rem;
   }
 
   li {
-      list-style-type: none;
-      >div {
+    list-style-type: none;
+
+    >div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 $sidePadding;
+
+      .buttons {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 $sidePadding;
+        width: min-content;
+        gap: 0.5rem;
 
-        .buttons {
+        button {
+          border: none;
+          background-color: transparent;
           display: flex;
-          width: min-content;
-          gap: 0.5rem;
-
-          button {
-            border: none;
-            background-color: transparent;
-            display: flex;
-            cursor: pointer;
-          }
-        }
-
-
-        .info {
-          flex: 0.9;
-          display: grid;
-          grid-template-columns: repeat(v-bind(categoriesSize), 1fr);
+          cursor: pointer;
         }
       }
-    }
 
-    ::-webkit-scrollbar {
-      width: 4px;
-    }
 
-    ::-webkit-scrollbar-thumb {
-      background-color: #24b9d4;
-      border-radius: 4px;
-      transition: 0.2s;
+      .info {
+        flex: 0.98;
+        display: grid;
+        grid-template-columns: v-bind(templateColumns);
+        gap: 0.5rem;
+      }
     }
+  }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background-color: color.adjust(#24b9d4, $lightness: 10%);
-    }
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #24b9d4;
+    border-radius: 4px;
+    transition: 0.2s;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: color.adjust(#24b9d4, $lightness: 10%);
+  }
 }
 </style>
