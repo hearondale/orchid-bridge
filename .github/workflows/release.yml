@@ -15,7 +15,7 @@ jobs:
         run: sudo apt install zip
 
       - name: Checkout source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.event.repository.default_branch }}
@@ -33,8 +33,9 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: 18.x
+          node-version: 20.x
           cache: "npm"
+          cache-dependency-path: "web/package-lock.json"
 
       - name: Install dependencies
         run: npm i --frozen-lockfile
