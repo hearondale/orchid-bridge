@@ -13,6 +13,11 @@ jobs:
       - name: Install zip
         run: sudo apt install zip
 
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
       - name: Checkout source code
         uses: actions/checkout@v4
         with:
