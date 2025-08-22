@@ -20,6 +20,9 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.repository.default_branch }}
 
+      - name: Debug lockfile path
+        run: ls -lah web | grep package-lock.json || echo "No lockfile found"
+
       - name: Get variables
         id: get_vars
         run: |
