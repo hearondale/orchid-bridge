@@ -60,6 +60,3 @@ else -- Client initialization
     Orchid.progress = require(("modules.progress.%s"):format(Config.Progress))
     Orchid.notify = require(("modules.notify.client.%s"):format(Config.Notify))
 end
-
-    
-

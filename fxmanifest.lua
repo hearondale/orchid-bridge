@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 lua54 'yes'
 
-author 'Retro'
+author 'Orchid Studios'
 description 'Orchid Bridge'
 version '0.6.0'
 

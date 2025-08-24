@@ -54,7 +54,7 @@ function ListMenu:close()
 end
 
 function ListMenu:onSelect(itemIndex, buttonIndex)
-    self.buttons[buttonIndex].onSelect(itemIndex, self.items[itemIndex].args)
+    self.buttons[buttonIndex].onSelect(itemIndex, self.items[itemIndex], self.items[itemIndex].args)
 end
 
 
